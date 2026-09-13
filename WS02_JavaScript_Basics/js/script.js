@@ -1,6 +1,6 @@
 // Exercise 1 – Developer Tools and Console
 console.log("Hello, World!");
-alert("Hello! Welcome to my Website!")
+alert("Hello! Welcome to my Website!");
 
 // STEP 2: Variables
 // Store text values in variables
@@ -9,7 +9,6 @@ let age = 21;
 const favoriteAnimal = "Kissa";
 console.log("My name is " + userName);
 console.log("My favorite animal is " + favoriteAnimal);
-
 
 // Exercise 3 – User Input
 const visitorName = prompt("What is your name");
@@ -33,7 +32,8 @@ if (userAge >= 18)
     else { console.log("You are under 18."); }
 
 // Exercise 5 – Functions
-function greetUser(name) { console.log("Hello " + name + "!"); }
+function greetUser(name)
+{ console.log("Hello " + name + "!"); }
 greetUser("Ismo");
 
 // Exercise 6 – Button – Connect JavaScript to the Page
