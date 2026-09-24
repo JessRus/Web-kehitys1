@@ -28,3 +28,12 @@ a:hover {
   color: #152202;
   text-decoration: none;
 }
+
+button {
+    background-color: #90b35c ;
+    color: rgb(44, 76, 7);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
