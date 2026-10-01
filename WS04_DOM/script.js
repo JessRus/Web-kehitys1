@@ -23,7 +23,7 @@ changeTextButton.addEventListener("click", function() {
 });
 
 // BONUS
-animalText.textContent += " Elefantit elävät luonnossa Afrikassa ja Aasiassa.";
+animalText.textContent += " Elefantit elävät luonnossa.";
 
 const backgroundButton = document.querySelector("#changeBackgroundButton");
 backgroundButton.addEventListener("click", function() {
