@@ -1,5 +1,5 @@
 //API AVAIN TÄHÄN
-const apiKey = "apikey";
+const apiKey = "YOUR_API_KEY";
 
 const weatherdata = document.querySelector("#weatherdata");
 const city = document.querySelector("#city");
