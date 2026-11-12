@@ -1,60 +1,50 @@
-//MUISTA MUUTTAA
-const apiKey = "api key";
+//API AVAIN TÄHÄN
+const apiKey = "apikey";
 
-const button = document.getElementById("fetchWeather");
-const output = document.getElementById("weatherdata");
-const city = document.getElementById("city");
+const weatherdata = document.querySelector("#weatherdata");
+const city = document.querySelector("#city");
+const citysearch = document.querySelector("#citysearch");
 
-// Haetaan säätiedot
-function fetchWeather(cityName) {
-
-    output.textContent = "Ladataan säätietoja...";
-
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&mode=xml&appid=${apiKey}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Virhe säätietojen hakemisessa");
-            }
-
-            return response.text();
-        })
-        .then(data => {
-
-            // Parsitaan XML
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(data, "text/xml");
-
-            const temperature = xml.querySelector("temperature").getAttribute("value");
-            const clouds = xml.querySelector("clouds").getAttribute("name");
-            const humidity = xml.querySelector("humidity").getAttribute("value");
-
-            // Näytetään säätiedot
-            output.innerHTML = `
-                <p>Lämpötila: ${temperature} °C</p>
-                <p>Pilvisyys: ${clouds}</p>
-                <p>Ilmankosteus: ${humidity} %</p>
-            `;
-
-        })
-        .catch(error => {
-            output.textContent = "Säätietojen hakeminen epäonnistui.";
-            console.error(error);
-        });
-}
-
-// Hae data -painike
-button.addEventListener("click", function() {
-    fetchWeather(city.value);
-});
-
-// Kaupunkivalikko
 city.addEventListener("change", function() {
     fetchWeather(city.value);
 });
 
-// Hakukenttä
-document.getElementById("search").addEventListener("click", function() {
-    const searchCity = document.getElementById("citysearch").value;
-    fetchWeather(searchCity);
+document.querySelector("#search").addEventListener("click", function() {
+    fetchWeather(citysearch.value);
 });
+
+async function fetchWeather(cityName) {
+
+    weatherdata.textContent = "Ladataan säätietoja...";
+
+    try {
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&mode=xml&appid=${apiKey}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Säätietojen hakeminen epäonnistui");
+        }
+
+        const data = await response.text();
+
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(data, "text/xml");
+
+        const temperature = xml.querySelector("temperature").getAttribute("value");
+        const clouds = xml.querySelector("clouds").getAttribute("name");
+        const humidity = xml.querySelector("humidity").getAttribute("value");
+
+        weatherdata.innerHTML = `
+            <p>Kaupunki: ${cityName}</p>
+            <p>Lämpötila: ${temperature} °C</p>
+            <p>Pilvisyys: ${clouds}</p>
+            <p>Ilmankosteus: ${humidity} %</p>
+        `;
+
+    } catch (error) {
+        weatherdata.textContent = "Säätietojen haku epäonnistui.";
+        console.error(error);
+    }
+}
 
